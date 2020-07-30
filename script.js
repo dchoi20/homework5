@@ -1,31 +1,44 @@
 $(document).ready(function () {
   // DISPLAY TIME IN HEADER
-  $("#currentDay").text(moment().format("MMM do YYYY"));
+  $("#currentDay").text(moment().format("MMM Do YYYY, h:mm:ss a"));
 
   // SET VARIABLES
   let today = new Date();
   let timeNow = today.getHours();
-  let $timeSection = $(".timeSection");
+  let $textArea = $(".textArea");
 
   // COLOR ROW
   function colorTimeSection() {
-    $timeSection.each(function () {
-      let $currentSection = $(this);
-      let currentHour = parseInt($currentSection.attr("data-time"));
+    $textArea.each(function () {
+      let $textArea = $(this);
+      let currentHour = parseInt($textArea.attr("data-time"));
       console.log(currentHour);
 
       if (currentHour == timeNow) {
-        $currentSection.addClass("present").removeClass("past");
+        // red
+        $textArea.addClass("present").removeClass("past");
       }
       if (currentHour < timeNow) {
-        $currentSection.addClass("past").removeClass("present");
+        // grey
+        $textArea.addClass("past").removeClass("present");
       }
       if (currentHour > timeNow) {
-        $currentSection.addClass("future").removeClass("past present");
+        // green
+        $textArea.addClass("future").removeClass("past present");
       }
     });
   }
 
+  let $saveBtn = $(".saveBtn");
+
+  textAreaValue();
+  function textAreaValue() {
+    $saveBtn.each(function () {
+      let save = $(this);
+      let saveClicked = save.attr("value");
+      console.log(saveClicked);
+    });
+  }
   // CALL FUNCTION
 
   displayPlans();
@@ -39,11 +52,17 @@ $(document).ready(function () {
     $(".textArea").val(plans);
   }
 
-  $(".saveBtn").on("click", () => {
-    let plans = $(this.value).val();
-    console.log(plans);
+  $(".saveBtn").on("click", (e) => {
+    console.log(e.target);
+    // let plans = $(".textArea").text();
+    // console.log(plans);
 
-    localStorage.setItem("plans", plans);
-    displayPlans();
+    // localStorage.setItem("plans", plans);
+    // displayPlans();
+    // $saveBtn.each(function () {
+    // let save = $(".saveBtn");
+    // let saveClicked = save.attr("value");
+
+    // });
   });
 });
