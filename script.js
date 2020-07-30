@@ -11,6 +11,26 @@ $(document).ready(function () {
   let timeNow = today.getHours();
   let $timeSection = $(".timeSection");
 
+  // COLOR ROW 
+  function colorTimeSection() {
+    $timeSection.each(function () {
+      let $currentSection = $(this);
+      let currentHour = parseInt($currentSection.attr("time"));
+      console.log(currentHour);
+
+
+      if (currentHour == timeNow) {
+        $currentSection.addClass("present").removeClass("past");
+      }
+      if (currentHour < timeNow) {
+        $currentSection.addClass("past").removeClass("present");
+      }
+      if (currentHour > timeNow) {
+        $currentSection.addClass("future").removeClass("past present");
+      }
+
+    })
+  }
 
 
   // CALL FUNCTION 
@@ -18,6 +38,7 @@ $(document).ready(function () {
   displayPlans();
 
 
+  colorTimeSection();
 
   // SAVE BUTTON
 
@@ -34,28 +55,6 @@ $(document).ready(function () {
     localStorage.setItem("plans", plans)
     displayPlans();
 
-    // COLOR ROW 
-    colorTimeSection();
-    function colorTimeSection() {
-      $timeSection.each(function () {
-        let $currentSection = $(this);
-        console.log($currentSection)
-        let currentHour = parseInt($currentSection.attr("time"));
-        console.log(currentHour);
-
-        if (currentHour < timeNow) {
-          // grey
-          $(".textArea").addClass("past");
-        } else if (currentHour == timeNow) {
-          red
-          $(".textArea").addClass("present");
-        } else {
-          // green
-          $(".textArea").addClass("future");
-        }
-
-      })
-    }
 
 
   });
