@@ -1,23 +1,18 @@
 $(document).ready(function () {
-
-  // DISPLAY TIME IN HEADER 
+  // DISPLAY TIME IN HEADER
   $("#currentDay").text(moment().format("MMM do YYYY"));
 
-
-
-
-  // SET VARIABLES 
+  // SET VARIABLES
   let today = new Date();
   let timeNow = today.getHours();
   let $timeSection = $(".timeSection");
 
-  // COLOR ROW 
+  // COLOR ROW
   function colorTimeSection() {
     $timeSection.each(function () {
       let $currentSection = $(this);
-      let currentHour = parseInt($currentSection.attr("time"));
+      let currentHour = parseInt($currentSection.attr("data-time"));
       console.log(currentHour);
-
 
       if (currentHour == timeNow) {
         $currentSection.addClass("present").removeClass("past");
@@ -28,15 +23,12 @@ $(document).ready(function () {
       if (currentHour > timeNow) {
         $currentSection.addClass("future").removeClass("past present");
       }
-
-    })
+    });
   }
 
-
-  // CALL FUNCTION 
+  // CALL FUNCTION
 
   displayPlans();
-
 
   colorTimeSection();
 
@@ -44,23 +36,14 @@ $(document).ready(function () {
 
   function displayPlans() {
     let plans = localStorage.getItem("plans");
-    $(".textArea").val(plans)
+    $(".textArea").val(plans);
   }
 
   $(".saveBtn").on("click", () => {
-
     let plans = $(this.value).val();
     console.log(plans);
 
-    localStorage.setItem("plans", plans)
+    localStorage.setItem("plans", plans);
     displayPlans();
-
-
-
   });
 });
-
-
-
-
-
