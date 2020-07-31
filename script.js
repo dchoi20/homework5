@@ -6,11 +6,13 @@ $(document).ready(function () {
   let today = new Date();
   let timeNow = today.getHours();
   let $textArea = $(".textArea");
-
+  let dailyPlanner = [];
+  let dataTime = $("textArea").attr("data-time");
   // COLOR ROW
   function colorTimeSection() {
     $textArea.each(function () {
       let $textArea = $(this);
+      console.log($textArea);
       let currentHour = parseInt($textArea.attr("data-time"));
       console.log(currentHour);
 
@@ -29,40 +31,25 @@ $(document).ready(function () {
     });
   }
 
-  let $saveBtn = $(".saveBtn");
+  // let $saveBtn = $(".saveBtn");
 
-  textAreaValue();
-  function textAreaValue() {
-    $saveBtn.each(function () {
-      let save = $(this);
-      let saveClicked = save.attr("value");
-      console.log(saveClicked);
-    });
-  }
   // CALL FUNCTION
-
-  displayPlans();
 
   colorTimeSection();
 
   // SAVE BUTTON
 
-  function displayPlans() {
-    let plans = localStorage.getItem("plans");
-    $(".textArea").val(plans);
-  }
+  $(".saveBtn").on("click", () => {
+    // let plans = $(".textArea").val();
+    console.log(parseInt($(".textArea").attr("data-time")));
 
-  $(".saveBtn").on("click", (e) => {
-    console.log(e.target);
-    // let plans = $(".textArea").text();
-    // console.log(plans);
+    dailyPlanner.push({
+      time: dataTime,
+      plan: "hello",
+    });
+    localStorage.setItem("planner", JSON.stringify(dailyPlanner));
 
-    // localStorage.setItem("plans", plans);
-    // displayPlans();
-    // $saveBtn.each(function () {
-    // let save = $(".saveBtn");
-    // let saveClicked = save.attr("value");
-
-    // });
+    console.log($textArea.attr("data-time"));
+    console.log($(this).parent());
   });
 });
